@@ -24,6 +24,13 @@ jobs:
   repackage:
     runs-on: ubuntu-latest
     steps:
+      - name: 安装 pandas 包
+        run: |
+          # 可选：升级 pip 到最新版本，避免安装失败
+          python -m pip install --upgrade pip
+          # 安装 pandas（指定版本或直接安装最新版）
+          pip install pandas  # 安装最新稳定版
+          # 可选：安装指定版本，如 pip install pandas==2.1.4
       - name: Print workflow inputs
         run: |
           echo "plugin_author  = ${{ inputs.plugin_author }}"
