@@ -24,14 +24,18 @@ jobs:
   repackage:
     runs-on: ubuntu-latest
     steps:
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      
       - name: 安装 pandas 包
         run: |
           # 可选：升级 pip 到最新版本，避免安装失败
           python -m pip install --upgrade pip
           pip cache purge
           # 安装 pandas（指定版本或直接安装最新版）
-          python -m pip install --upgrade pandas==3.0.*
-          # pip install pandas==3.0.1  # 安装最新稳定版
+          pip install pandas==3.0.1 -i https://pypi.org/simple  # 安装最新稳定版
           # 可选：安装指定版本，如 pip install pandas==2.1.4
       - name: Print workflow inputs
         run: |
@@ -52,11 +56,6 @@ jobs:
 
       - name: Checkout repository
         uses: actions/checkout@v4
-
-      - name: Set up Python 3.12
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
 
       - name: Make plugin_repackaging.sh executable
         run: chmod +x ./plugin_repackaging.sh
