@@ -24,19 +24,16 @@ jobs:
   repackage:
     runs-on: ubuntu-latest
     steps:
-      - name: Set up Python 3.12
+      - name: Set up Python 3.10
         uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
-      
-      - name: 安装 pandas 包
+          python-version: "3.10"
+  
+      # 关键步骤：在打包前，确保 requirements.txt 是兼容的
+      - name: Fix Requirements
         run: |
-          # 可选：升级 pip 到最新版本，避免安装失败
-          python -m pip install --upgrade pip
-          pip cache purge
-          # 安装 pandas（指定版本或直接安装最新版）
-          pip install pandas==3.0.1 -i https://pypi.org/simple  # 安装最新稳定版
-          # 可选：安装指定版本，如 pip install pandas==2.1.4
+          sed -i 's/pandas~=3.0.1/pandas>=2.2.0,<3.0.0/g' requirements.txt || true
+      
       - name: Print workflow inputs
         run: |
           echo "plugin_author  = ${{ inputs.plugin_author }}"
