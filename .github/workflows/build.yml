@@ -30,7 +30,8 @@ jobs:
           python -m pip install --upgrade pip
           pip cache purge
           # 安装 pandas（指定版本或直接安装最新版）
-          pip install pandas==3.0.1  # 安装最新稳定版
+          python -m pip install --upgrade pandas==3.0.*
+          # pip install pandas==3.0.1  # 安装最新稳定版
           # 可选：安装指定版本，如 pip install pandas==2.1.4
       - name: Print workflow inputs
         run: |
